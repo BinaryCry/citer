@@ -1,1 +1,5 @@
-Teach TXT
+If commited on Prod
+git reset <commithash>
+git reset —hard
+git pull
+
