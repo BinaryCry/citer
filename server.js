@@ -8,18 +8,24 @@ const IP   = '127.0.0.2';
 // fs
 const fs = require('fs');
 
-// server
 const server = http.createServer(
     (req, res) => {
         res.setHeader('Author', 'Alex Step');
         res.writeHead(200, 'msg: OK', {'Content-Type' : 'text/html; charset=utf-8'});
-        res.write('<br>');
-        res.end('<h5>Hello, World! текст</h5>', null, function () {
-            console.log('done');
+        fs.readFile('teach.txt', null, function (err, data) {
+            if(err) {
+                res.write('<div>Could not find or open file to read</div>');
+            } else {
+                let bool = data ? true : false; // if file exists return true (file can be empty); !!data
+                res.write('<pre>'+bool+'</pre>');
+                res.write('<pre>'+data+'</pre>');
+                res.end(null, null, function () {
+                    console.log('done');
+                });
+            }
         });
     }
-);
-server.listen(PORT,IP, null, function () {
+).listen(PORT,IP, null, function () {
     console.log('Listening on '+IP+':'+PORT);
 });
 
