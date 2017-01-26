@@ -1,16 +1,25 @@
 // @server 1.1
 
+// http
 const http = require('http');
 const PORT = 3000;
 const IP   = '127.0.0.2';
 
-respreq = (req,res) => {
-    console.log('1');
-    res.writeHead(200,{'Content-Type':'text/html'});
-    res.write('<br>');
-    res.end('<h1>Hello, World!</h1>');
-};
+// fs
+const fs = require('fs');
 
-const server = http.createServer(respreq);
-server.listen(PORT,IP);
-console.log('Listening on '+IP+':'+PORT+'...');
+// server
+const server = http.createServer(
+    (req, res) => {
+        res.setHeader('Author', 'Alex Step');
+        res.writeHead(200, 'msg: OK', {'Content-Type' : 'text/html; charset=utf-8'});
+        res.write('<br>');
+        res.end('<h5>Hello, World! текст</h5>', null, function () {
+            console.log('done');
+        });
+    }
+);
+server.listen(PORT,IP, null, function () {
+    console.log('Listening on '+IP+':'+PORT);
+});
+
