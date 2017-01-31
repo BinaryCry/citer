@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+    <!--Style-->
+        <link rel="stylesheet" type="text/css" href="resources/vendor/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    <!--Libs-->
+        <script src="node_modules/es6-shim/es6-shim.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+    </head>
+    <body>
+        <script src="resources/systemjs.config.js"></script>
+        <script>
+            System.import('app.js')
+                .then(null, console.error.bind(console));
+        </script>
+        <hello-world></hello-world>
+    </body>
+</html>
