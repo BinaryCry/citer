@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class UserItemComponent implements OnInit {
 
   name: string;
+  sname: string;
 
   constructor() {
     this.name = 'Alex'; // доступно в пределах разметки компонента
+    this.sname = 'Step';
   }
 
   ngOnInit() {

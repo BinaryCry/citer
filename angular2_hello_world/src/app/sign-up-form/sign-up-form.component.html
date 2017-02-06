@@ -1,0 +1,23 @@
+<div>
+  <h1>{{sign_up_text}}</h1>
+  <form action="">
+    <div><input type="text" placeholder="{{comp_ph}}"></div>
+    <div><input type="text" placeholder="{{fio_ph}}"></div>
+    <div><input type="text" placeholder="{{mail_ph}}"></div>
+    <div><span>{{pcc.ua}}</span>&nbsp;<input type="text" name="phone" value="" title="Номер телефона"></div>
+    <div>
+      <select name="user_type" title="Тип пользователя">
+        <option *ngFor="let item of user_type" value="{{item.value}}">{{item.type}}</option>
+      </select>
+    </div>
+    <div>
+      <textarea name="comment" cols="30" rows="10" placeholder="{{comment_ph}}"></textarea>
+    </div>
+    <div>
+      <button type="reset">{{reset_btn}}</button>
+      <button type="submit">{{submit_btn}}</button>
+    </div>
+  </form>
+  <p>Have u an account? <a href="{{sin_link}}">SignIN</a></p>
+</div>
+

@@ -1,7 +1,13 @@
-<ul>
+<!-- <ul>
   <li *ngFor=
   "
     let item of names
   "
   >Hello {{item}}</li>
+</ul> -->
+
+<ul>
+  <user-item *ngFor=" let item of names "></user-item> <!-- цикл "крутится" names.lenght раз
+                                                       (синтаксис ngFor требует наличия конструкции let... чтобы работать, но не использует ее данных внутри других компонентов),
+                                                       но использует вместо li разметку и данные user-item -->
 </ul>
