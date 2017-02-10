@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input
+} from '@angular/core';
 
 @Component({
   selector: 'user-item',
   templateUrl: './user-item.component.html',
   styleUrls: ['./user-item.component.css']
-})
-export class UserItemComponent implements OnInit {
+}) export class UserItemComponent implements OnInit {
 
-  name: string;
+  @Input() name: string;
   sname: string;
 
   constructor() {
-    this.name = 'Alex'; // доступно в пределах разметки компонента
-    this.sname = 'Step';
+    // доступно в пределах разметки компонента
+    // this.sname = 'Step';
   }
 
   ngOnInit() {

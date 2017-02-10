@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
     names: Array<string>; // string[]
 
     constructor() {
-        this.names = ['Carl','Albert','Monica'];
+        this.names = ['Carl','Albert','Monica', 'Richard'];
     }
 
     ngOnInit() {
