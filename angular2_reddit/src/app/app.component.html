@@ -14,7 +14,18 @@
       (click)="addArticle(newtitle, newlink)"
       class="ui positive right floated button"
     >
-      {{submitBtnText}} {{status}}
+      {{app.submitBtnText}} {{app.status}}
     </button>
 
 </form>
+
+<div class="ui grid posts">
+  <article
+
+    *ngFor="let item of sortingArticles()"
+    [article]="item"
+
+  >Loading...</article>
+  <!-- ~~ *ngFor что-то вроде привязки. Если количество элементов изменится, произойдет повторная обработка массива и "дорисуется" новый элемент  -->
+</div>
+
