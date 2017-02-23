@@ -1,0 +1,6 @@
+alexstep@FED ~/Рабочий стол/babel $ ./node_modules/.bin/babel app.js -d dist
+app.js -> dist/app.js
+
+alexstep@FED ~/Рабочий стол/babel $ ./node_modules/.bin/babel --plugins transform-react-jsx index.jsx -d dist
+index.jsx -> dist/index.js
+
