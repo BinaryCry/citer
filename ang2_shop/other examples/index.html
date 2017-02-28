@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript">
+            var onloadCallback = function() {
+
+                grecaptcha.render('rc', {
+                    'sitekey' : '6LcVIhcUAAAAAG44IZYVqjjsdql-2Lx31FtnpQXj'
+                });
+
+                $('#form').on('submit', function (e) {
+                    console.log(e);
+                    var rspns = grecaptcha ? grecaptcha.getResponse() : null;
+
+                    if (rspns == ""){
+                        console.log("No");
+                    } else {
+                        console.log("Yes");
+                    }
+                    return false;
+                });
+
+
+                $('#root').on('click', function (e) {
+                    console.log(e);
+                })
+
+            };
+        </script>
+
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                async defer>
+        </script>
+
+
+    </head>
+    <body>
+
+        <form action="" id="form">
+            <div id="rc"></div>
+            <button type="submit">Submit</button>
+        </form>
+
+    <div id="root">Click</div>
+
+    </body>
+</html>
