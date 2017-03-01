@@ -30,7 +30,32 @@ class Product extends Item {
     }
 }
 
-class InventoryApp {
+// function item2(){} class Item1 {}
+
+// let App: InventoryApp = new InventoryApp();
+// App.run();
+
+@Component({
+    host: {
+        'class' : 'root'
+    }
+    selector: 'inventory-app',
+    // template: `
+    //     <div class="inventory-app">
+    //         <h1>{{ product.name }}</h1>
+    //         <span>{{ product.sku }}</span>
+    //     </div>
+    // `
+    template: `
+        <div class="inventory-app">
+            <product-list
+                [productList]="products"
+                (onProductSelected)="productWasSelected($event)"
+            > <!-- 1. input; 2. output -->
+            </product-list>
+        </div>
+    `
+}) class InventoryApp {
     products: Product[];
     constructor() {
         this.products = [
@@ -46,11 +71,11 @@ class InventoryApp {
             new Product(
                 345,
                 'Shavuha Shmot',
-                'Coat',
-                '/product/iac/coat.png',
+                'Mantle',
+                '/product/iac/mantle.png',
                 ['It', 'Accessories', 'Coats'],
                 440,
-                '4 seasons'
+                '4 seasons if u are <= 16 y.o.'
             ),
             new Product(
                 345,
@@ -66,18 +91,51 @@ class InventoryApp {
     run():void {
         console.log(this.products);
     }
+
+    static productWasSelected(product: Product): void {
+        console.log('Product clicked: ', product);
+    }
+
 }
 
-let App: InventoryApp = new InventoryApp();
-App.run();
+@Component({
+    selector: 'product-list',
+    template: `
+        <div>raiting: {{count}}</div>
+        <button
+            (click)="inc(incBtn)"
+            #incBtn
+        >+1</button>
+    `,
+    inputs: ['list: productList'], // @Input('productList') list: string;
+    outputs: ['onProducSelected']
+}) class productList {
+    list: Product[];
+
+    private count: number = 1;
+
+    constructor() {
+
+    }
+    inc( btn: HTMLButtonElement ): void {
+        this.count++;
+    }
+}
+
+
+// ---------------------------
 
 @Component({
-    selector: 'inventory-app',
+    host: {
+        'class' : 'btn btn-like'
+    },
+    selector: 'like',
     template: `
-        <div class="inventory-app">
-            <h1>{{ product.name }}</h1>
-            <span>{{ product.sku }}</span>
-        </div>
-    `
-})
+          
+    `,
+    outputs: ['count']
+}) class Like {
+
+
+}
 
