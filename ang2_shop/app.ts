@@ -1,5 +1,5 @@
 class Fundamental {
-    protected id: number;
+    public id: number;
     protected constructor( n: number ) {
         this.id = n;
     }
@@ -16,10 +16,10 @@ class Item extends Fundamental {
 }
 class Product extends Item {
     constructor(
-        protected id: number, // protected specifying will create a local variable like if it was declared before constructor
-                              // if inheritable variable has tha same name, it will be redeclared by one of parents class
-                              // in this case local id: number will be created, but in Fundamental it will be redeclared with this.id = n
-        public sku: string,
+        public id: number, // protected specifying will create a local variable like if it was declared before constructor
+                           // if inheritable variable has tha same name, it will be redeclared by one of parents class
+                           // in this case local id: number will be created, but in Fundamental it will be redeclared with this.id = n
+        public brand: string,
         public name: string,
         public imageUrl: string,
         public department: string[],
@@ -43,7 +43,7 @@ class Product extends Item {
     // template: `
     //     <div class="inventory-app">
     //         <h1>{{ product.name }}</h1>
-    //         <span>{{ product.sku }}</span>
+    //         <span>{{ product.brand }}</span>
     //     </div>
     // `
     template: `
@@ -62,7 +62,7 @@ class Product extends Item {
             new Product(
                 345,
                 'Paradnaya FASHION',
-                'Eight Clins Hat',
+                'Hat of Eight Clins',
                 '/product/mah/8ch.png',
                 ['Men', 'Accessories', 'Hats'],
                 440,
@@ -88,11 +88,7 @@ class Product extends Item {
             )
         ];
     }
-    run():void {
-        console.log(this.products);
-    }
-
-    static productWasSelected(product: Product): void {
+    productWasSelected(product: Product): void {
         console.log('Product clicked: ', product);
     }
 
@@ -101,41 +97,52 @@ class Product extends Item {
 @Component({
     selector: 'product-list',
     template: `
-        <div>raiting: {{count}}</div>
-        <button
-            (click)="inc(incBtn)"
-            #incBtn
-        >+1</button>
+        <div class="ui items">
+            <product-row
+                *ngFor = "let productItem of list"
+                [product] = "item"
+                (click) = " clicked(item) "
+                [class.selected] = "isSelected(item)"
+            >
+                loading...
+            </product-row>
+        </div>
     `,
     inputs: ['list: productList'], // @Input('productList') list: string;
     outputs: ['onProducSelected']
 }) class productList {
     list: Product[];
-
-    private count: number = 1;
-
+    onProducSelected: EventEmmiter<Product>;
+    private currentProduct: Product;
     constructor() {
-
+        this.onProducSelected = new EventEmmiter();
     }
-    inc( btn: HTMLButtonElement ): void {
-        this.count++;
+    clicked( product: Product ): void {
+        this.currentProduct = product;
+        this.onProducSelected.emit(product);
+    }
+    isSelected( product: Product ): boolean { // if foo will return true, element will receive .selected
+        if( !product || this.currentProduct ) {
+            return false;
+        }
+        return product.id === this.currentProduct.id;
     }
 }
-
-
-// ---------------------------
 
 @Component({
     host: {
-        'class' : 'btn btn-like'
+        "class":"item"
     },
-    selector: 'like',
+    input: ['item:product'],
+    selector: 'product-row',
     template: `
-          
+        <div>
+            
+        </div>
     `,
-    outputs: ['count']
-}) class Like {
+}) class productRow {
+    item: Product;
+    constructor() {
 
-
+    }
 }
-

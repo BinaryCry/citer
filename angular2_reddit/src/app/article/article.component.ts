@@ -10,7 +10,7 @@ import { Article } from './article.model';
     title: 'test'
   }
 }) export class ArticleComponent implements OnInit {
-  @Input() article: Article;
+  @Input('newa') article: Article; // inputs: ['article': 'newa'] > @Component
 
   constructor() {
     // this.article = new Article(
