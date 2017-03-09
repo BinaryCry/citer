@@ -110,7 +110,7 @@ class Product extends Item {
     `,
     inputs: ['list: productList'], // @Input('productList') list: string;
     outputs: ['onProducSelected']
-}) class productList {
+}) class ProductList {
     list: Product[];
     onProducSelected: EventEmmiter<Product>;
     private currentProduct: Product;
@@ -133,16 +133,81 @@ class Product extends Item {
     host: {
         "class":"item"
     },
-    input: ['item:product'],
+    input: ['pitem:product'],
     selector: 'product-row',
     template: `
-        <div>
-            
+        <product-image [product]="product"></product-image>
+        <div class="content">
+            <div class="header">{{ pitem.name }}</div>
+            <div class="meta">
+                <div class="product-brand">Brand: <b>{{ pitem.brand }}</b></div>
+            </div>
+            <div class="description">
+                <product-department [product]="product"></product-department>
+            </div>  
         </div>
+        <price-display [price]="pitem.price" ></price-display>
     `,
-}) class productRow {
-    item: Product;
-    constructor() {
-
-    }
+}) class ProductRow {
+    pitem: Product;
 }
+
+@Component({
+    selector: 'product-image',
+    host: {
+        class: 'ui small image'
+    },
+    inputs: ['product'],
+    template: `
+        <img class="product-image" [src]="product.imageUrl">
+    `
+}) class ProductImage {
+    product: Product;
+}
+
+@Component({
+    selector: 'price-display',
+    inputs: ['price'],
+    template: `
+        <div class="price-display">\${{ price }}</div>
+    `
+}) class PriceDisplay {
+    price: number;
+}
+
+@Component({
+    selector: 'product-department',
+    inputs: ['product'],
+    template: `
+        <div class="product-department">
+            <span *ngFor="let name of product.department; let i=index">
+                <a href="#">{{ name }}</a>
+                <span>{{i < (product.department.length-1) ? '>' : ''}}</span>
+            </span>
+        </div>
+    `
+}) class ProductDepartment {
+    product: Product;
+}
+
+// ---------------------------------- NG
+@NgModule({
+    declarations: [
+        InventoryApp,
+        ProductImage,
+        ProductDepartment,
+        PriceDisplay,
+        ProductRow,
+        ProductList
+    ],
+    imports: [
+        BrowserModule
+    ],
+    bootstrap: [
+        InventoryApp
+    ]
+}) class ShopModule {
+
+}
+
+platformBrowserDynamic().bootstrapModule( ShopModule );
