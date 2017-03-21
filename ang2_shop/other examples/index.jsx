@@ -39,11 +39,24 @@ function initMap() {
         }
     ];
 
-    let calcDist = (arr) => {
-        // console.log(arr)
+    let calcDist = (arr) => { // вычислить сумму расстояний от точки до точки
+        console.log(arr[0].location);
+        console.log(arr.slice(1));
+
+
+        console.log(arr.slice(1).map(
+            function (item) {
+                return { lat: item.location.lat, lng: item.location.lng }
+            }
+        ));
+
         service.getDistanceMatrix({
-            origins: [arr[0]],
-            destinations: arr.slice(1),
+            origins: [arr[0].location],
+            destinations: arr.slice(1).map(
+                function (item) {
+                    return { lat: item.location.lat, lng: item.location.lng }
+                }
+            ),
             travelMode: google.maps.TravelMode.DRIVING,
             unitSystem: google.maps.UnitSystem.METRIC,
             avoidHighways: false,
@@ -52,19 +65,19 @@ function initMap() {
             if (status !== google.maps.DistanceMatrixStatus.OK) {
                 alert('Error was: ' + status);
             } else {
+                console.log(response);
                 console.log(parseInt(response.rows[0].elements[0].distance.value)/1000+' км');
             }
         })
     };
-    let drawWay = (arr, it) => {
-
-        // console.log(arr);
-        // console.log(it);
+    let drawWay = (arr) => {
+        console.log('drawWay');
+        console.log(arr);
 
         let request = {
-            origin: new google.maps.LatLng(arr[0].lat, arr[0].lng), //точка старта
-            waypoints: arr.slice(1, arr.lenght-1), // slice
-            destination: new google.maps.LatLng(arr[arr.length-1].lat, arr[arr.length-1].lng), //точка финиша
+            origin: new google.maps.LatLng(arr[0].location.lat, arr[0].location.lng), //точка старта
+            waypoints: arr.slice(1, arr.length-1), // slice
+            destination: new google.maps.LatLng(arr[arr.length-1].location.lat, arr[arr.length-1].location.lng), //точка финиша
             travelMode: google.maps.DirectionsTravelMode.DRIVING, //режим прокладки маршрута
             optimizeWaypoints: true
         };
@@ -74,14 +87,14 @@ function initMap() {
             }
         });
         directionsDisplay.setMap(map);
-        // calcDist(arr);
+        calcDist(arr);
     };
     let renderWay = (start, finish, arr) => {
-        let result = []; let it = 0;
+        let result = [];
         arr.unshift(start);
         arr.push(finish);
 
-        console.log(arr);
+        // console.log(arr);
 
         arr.forEach( function (item, i, origin) {
             if(typeof item.location === 'string') {
@@ -94,17 +107,14 @@ function initMap() {
                         }
                     });
                 } ).then(
-                    function (res) {
+                    function (res) { // каждый поток Promise идет сам по себе ассинхронно и может случиться так, что элемент с индексом == количеству элементов массива
+                                     // придет на проверку раньше, поэтому надо проверить длину входногои выходного массивов
                         result.push(res);
-                        // console.log(result);
-                        it++;
-                        console.log(`str ${i} ${origin.length-1}`);
-                        console.log(i == origin.length-1);
-                        if(i == origin.length-1) {
-                            console.log(it+' == str');
-                            drawWay(result, it);
+                        // console.log(`str ${i} ${origin.length-1} ${item.location}`);
+                        // console.log(i == origin.length-1);
+                        if(result.length == origin.length) {
+                            drawWay(result);
                         } else {
-                            // console.log('go next string')
                         }
                     },
                     function (err) {
@@ -113,16 +123,11 @@ function initMap() {
                 );
             } else {
                 result.push( item );
-                // console.log(result);
-                it++;
-                console.log(`obj ${i} ${origin.length-1}`);
-                console.log(i == origin.length-1);
-                if(i == origin.length-1) {
-                    // console.log(origin.length-1);
-                    // console.log(it+' == obj');
-                    drawWay(result, it);
+                // console.log(`obj ${i} ${origin.length-1} ${item.location}`);
+                // console.log(i == origin.length-1);
+                if(result.length == origin.length) {
+                    drawWay(result);
                 } else {
-                    // console.log('go next object')
                 }
             }
         } );
