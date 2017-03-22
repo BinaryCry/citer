@@ -60,7 +60,7 @@ function initMap() {
             } ).then( function (res) {
                 dist += parseFloat(res);
                 if(arr.length == j+1) {
-                    document.getElementById('dist').innerHTML = `${parseInt(dist)/1000} км`;
+                    document.getElementById('dist').innerHTML = `&#x2248; ${parseInt(dist)}км`;
                 } else {
                 }
             }, function (err) {

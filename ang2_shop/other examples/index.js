@@ -56,12 +56,9 @@ function initMap() {
                 });
             }).then(function (res) {
                 dist += parseFloat(res);
-                // console.log(`j=${res[1]} arr.lenght=${arr.length}`);
                 if (arr.length == j + 1) {
-                    document.getElementById('dist').innerHTML = parseInt(dist) / 1000 + ' \u043A\u043C';
-                } else {
-                    console.log('somth going wrong');
-                }
+                    document.getElementById('dist').innerHTML = '&#x2248; ' + parseInt(dist) + ' \u043A\u043C';
+                } else {}
             }, function (err) {
                 console.log(err);
             });
