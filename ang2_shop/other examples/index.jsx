@@ -40,40 +40,35 @@ function initMap() {
     ];
 
     let calcDist = (arr) => { // вычислить сумму расстояний от точки до точки
-        console.log(arr[0].location);
-        console.log(arr.slice(1));
-
-
-        console.log(arr.slice(1).map(
-            function (item) {
-                return { lat: item.location.lat, lng: item.location.lng }
-            }
-        ));
-
-        service.getDistanceMatrix({
-            origins: [arr[0].location],
-            destinations: arr.slice(1).map(
-                function (item) {
-                    return { lat: item.location.lat, lng: item.location.lng }
+        let dist = 0;
+        for(let i = 0, j = 1; i < arr.length-1; i++, j++) {
+            new Promise( function (resolve, reject) {
+                service.getDistanceMatrix({
+                    origins: [arr[i].location],
+                    destinations: [arr[j].location],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                    avoidHighways: false,
+                    avoidTolls: false
+                }, function(response, status) {
+                    if (status !== google.maps.DistanceMatrixStatus.OK) {
+                        reject('Error was: ' + status);
+                    } else {
+                        resolve([(response.rows[0].elements[0].distance.value)/1000, j]);
+                    }
+                })
+            } ).then( function (res) {
+                dist += parseFloat(res);
+                if(arr.length == j+1) {
+                    document.getElementById('dist').innerHTML = `${parseInt(dist)/1000} км`;
+                } else {
                 }
-            ),
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false
-        }, function(response, status) {
-            if (status !== google.maps.DistanceMatrixStatus.OK) {
-                alert('Error was: ' + status);
-            } else {
-                console.log(response);
-                console.log(parseInt(response.rows[0].elements[0].distance.value)/1000+' км');
-            }
-        })
+            }, function (err) {
+                console.log(err)
+            } )
+        }
     };
     let drawWay = (arr) => {
-        console.log('drawWay');
-        console.log(arr);
-
         let request = {
             origin: new google.maps.LatLng(arr[0].location.lat, arr[0].location.lng), //точка старта
             waypoints: arr.slice(1, arr.length-1), // slice
@@ -93,9 +88,6 @@ function initMap() {
         let result = [];
         arr.unshift(start);
         arr.push(finish);
-
-        // console.log(arr);
-
         arr.forEach( function (item, i, origin) {
             if(typeof item.location === 'string') {
                 new Promise( function (resolve, reject) {
@@ -108,10 +100,8 @@ function initMap() {
                     });
                 } ).then(
                     function (res) { // каждый поток Promise идет сам по себе ассинхронно и может случиться так, что элемент с индексом == количеству элементов массива
-                                     // придет на проверку раньше, поэтому надо проверить длину входногои выходного массивов
+                                     // придет на проверку раньше, поэтому надо проверить длину входного и выходного массивов
                         result.push(res);
-                        // console.log(`str ${i} ${origin.length-1} ${item.location}`);
-                        // console.log(i == origin.length-1);
                         if(result.length == origin.length) {
                             drawWay(result);
                         } else {
@@ -123,8 +113,6 @@ function initMap() {
                 );
             } else {
                 result.push( item );
-                // console.log(`obj ${i} ${origin.length-1} ${item.location}`);
-                // console.log(i == origin.length-1);
                 if(result.length == origin.length) {
                     drawWay(result);
                 } else {
@@ -133,7 +121,4 @@ function initMap() {
         } );
     };
     renderWay(startPoint, finishPoint, wpts);
-
-
-
 }
