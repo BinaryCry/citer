@@ -1,7 +1,9 @@
+"use strict";
+
 // Image Loader 1.1
 // author: AlexStep
 
-var LoadedText = function () {
+var LoadedText = function LoadedText() {
     return React.createElement(
         "div",
         { className: "loadBoxHeader" },
@@ -14,27 +16,31 @@ var LoadedText = function () {
 };
 
 var CloseCross = React.createClass({
-    imgPrevDelete: function (e) {
+    displayName: "CloseCross",
+
+    imgPrevDelete: function imgPrevDelete(e) {
         this.model = $('.imgBox').attr('data-model');
         $.ajax({
             url: '/' + this.model + '/image-delete/?name=' + $(e.target).parents('.loadedImg').find('img').attr('data-src'),
             type: 'POST',
             dataType: 'json',
-            success: function (data, status) {
-                success(data);
+            success: function success(data, status) {
+                _success(data);
             },
-            error: function (xhr, errorType, exception) {
+            error: function error(xhr, errorType, exception) {
                 var errorMessage = exception || xhr.statusText;console.log(errorMessage);
             }
         });
     },
-    render: function () {
+    render: function render() {
         return React.createElement("i", { onClick: this.imgPrevDelete, title: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0444\u0430\u0439\u043B", className: "fa fa-times loadedImgDel pointer", "data-model": this.model });
     }
 });
 
 var PreviewImg = React.createClass({
-    render: function () {
+    displayName: "PreviewImg",
+
+    render: function render() {
         return React.createElement(
             "div",
             { className: "imgBoxInner" },
@@ -115,13 +121,13 @@ $(function () {
                         data: Data,
                         processData: false,
                         contentType: false,
-                        success: function (data, status) {
-                            success(data, btn, 'load');
+                        success: function success(data, status) {
+                            _success(data, btn, 'load');
                         },
-                        error: function (xhr, errorType, exception) {
+                        error: function error(xhr, errorType, exception) {
                             var errorMessage = exception || xhr.statusText;console.log(errorMessage);
                         },
-                        complete: function () {
+                        complete: function complete() {
                             btn.parents('.loadBox').find('.lb-spin').hide('fade', null, 200);
                         }
                     });
@@ -141,10 +147,10 @@ $(function () {
                 url: '/' + model + '/image-delete/?name=' + $(this).parents('.loadedImg').find('img').attr('data-src'),
                 type: 'POST',
                 dataType: 'json',
-                success: function (data, status) {
-                    success(data);
+                success: function success(data, status) {
+                    _success(data);
                 },
-                error: function (xhr, errorType, exception) {
+                error: function error(xhr, errorType, exception) {
                     var errorMessage = exception || xhr.statusText;console.log(errorMessage);
                 }
             });
@@ -153,7 +159,7 @@ $(function () {
 });
 
 // gen
-function success(Data, elem, type) {
+function _success(Data, elem, type) {
     if (elem && type === 'load') {
         elem.parents('form').trigger('reset');
         elem.parents('.loadBox').find('.loadThumb').attr('src', '/images/tmp/noimg2.png');
@@ -168,7 +174,7 @@ function success(Data, elem, type) {
 // Notifications 1.0
 // author: AlexStep
 
-let source = [{
+var source = [{
     uid: 1,
     title: 'Новое предложение',
     data: {
@@ -200,8 +206,10 @@ let source = [{
     type: 'error'
 }];
 
-const PreviewNf = React.createClass({
-    render: function () {
+var PreviewNf = React.createClass({
+    displayName: "PreviewNf",
+
+    render: function render() {
         return React.createElement(
             "li",
             null,
@@ -234,7 +242,7 @@ window.msgHandler = new Object({
     nfCount: $('#notify-count'),
     pullBtn: document.getElementById('pullmsgs'),
     rendBtn: document.getElementById('rendmsgs'),
-    testBtns: function () {
+    testBtns: function testBtns() {
         if (this.pullBtn && this.rendBtn) {
             console.log('buttons exists :)');
             return true;
@@ -243,7 +251,7 @@ window.msgHandler = new Object({
             return false;
         }
     },
-    pull: function () {
+    pull: function pull() {
         this.msgArr = source;
         if (Array.isArray(this.msgArr) && this.msgArr.length > 0) {
             console.log('data was received');
@@ -264,7 +272,7 @@ window.msgHandler = new Object({
             console.log('error on data receiving');
         }
     },
-    init: function () {
+    init: function init() {
         // -----------------------------
 
         // $('#servpullmsgs').on('click', function () {
@@ -272,27 +280,27 @@ window.msgHandler = new Object({
         $('.nf-button').each(function () {
             $(this).on('click', function (e) {
                 e.stopPropagation();
-                let elem = $(this);
-                let Data = new FormData();
+                var elem = $(this);
+                var Data = new FormData();
                 Data.append('id', elem.parents('.item-row').attr('data-tdr-id'));
                 $.ajax({
                     method: 'POST',
-                    url: `/api/notify/`,
+                    url: "/api/notify/",
                     dataType: 'json',
                     data: Data,
                     processData: false,
                     contentType: false,
-                    success: function (data) {
+                    success: function success(data) {
                         notificationHandler(data, elem);
                     },
-                    error: function (xhr, errorType, exception) {
-                        let errorMessage = exception || xhr.statusText;console.log(errorMessage);
+                    error: function error(xhr, errorType, exception) {
+                        var errorMessage = exception || xhr.statusText;console.log(errorMessage);
                     }
                 });
             });
         });
 
-        let notificationHandler = (s_ans, elem) => {
+        var notificationHandler = function notificationHandler(s_ans, elem) {
             if (s_ans && s_ans.hasOwnProperty('status')) {
                 classStsatusToggle(elem, s_ans.status);
             } else {
@@ -302,7 +310,7 @@ window.msgHandler = new Object({
         };
 
         // universal for future
-        let classStsatusToggle = (elem, currentStatus) => {
+        var classStsatusToggle = function classStsatusToggle(elem, currentStatus) {
             switch (currentStatus) {
                 case true:
                     elem.removeClass('false').addClass('true');break;
@@ -323,8 +331,8 @@ window.msgHandler = new Object({
             console.log('has no buttons on a page, module is not initialized');
         }
     },
-    render: function (arr) {
-        let mtime = this.timeConverter(arr.timestamp);
+    render: function render(arr) {
+        var mtime = this.timeConverter(arr.timestamp);
         arr.forEach(function (item) {
             switch (item.data.command) {
                 case 'bid':
@@ -353,15 +361,15 @@ window.msgHandler = new Object({
             }
         });
     },
-    timeConverter: function () {
-        let a = new Date(Date.now() * 1000);
-        let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        let year = a.getFullYear();
-        let month = months[a.getMonth()];
-        let date = a.getDate();
-        let hour = a.getHours();
-        let min = a.getMinutes();
-        let sec = a.getSeconds();
+    timeConverter: function timeConverter() {
+        var a = new Date(Date.now() * 1000);
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
         return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
     }
 });
