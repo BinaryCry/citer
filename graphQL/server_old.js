@@ -1,4 +1,4 @@
-let { graphql, buildSchema } = require('graphql');
+import { graphql, buildSchema } from 'graphql';
 
 let schema = buildSchema(`
     type Query {
@@ -20,14 +20,17 @@ let root = {
     value: () => '255'
 };
 
-graphql(schema,
-    `{
+let query = `
+    {
         hello,
         person{
             name
         },
         value
-    }`,
-    root).then((response) => {
-    console.log(response);
-});
+    }`;
+
+graphql(schema, query, root).then(
+    (response) => {
+        console.log(response);
+    }
+);

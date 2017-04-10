@@ -1,2 +1,2 @@
-./node_modules/.bin/babel index.jsx > index.js
+./node_modules/.bin/babel server.js > out.js
 echo done
