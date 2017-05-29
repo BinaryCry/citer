@@ -1,0 +1,144 @@
+.clearMargPad {
+  padding: 0;
+  margin: 0;
+}
+.borderBox {
+  box-sizing: border-box;
+}
+.defaultBorder {
+  border: 1px solid #bfbfbf;
+  box-sizing: border-box;
+}
+.defaultBG {
+  background-color: #8a8a8a;
+  width: 3.25em;
+}
+.defaultBG:hover {
+  background-color: #d8d8d8;
+}
+.lightBorderBottom {
+  border-bottom: 1px solid #fff !important;
+}
+.lightBorderBottom:last-child {
+  border-bottom: inherit;
+}
+.noBorder {
+  border: 0px none !important;
+}
+.borderLeft {
+  border-left: 1px solid #989898 !important;
+  border-right: 1px solid #989898 !important;
+}
+.borderLeft:last-child {
+  border-right: 0px none !important;
+}
+.borderRight {
+  border-right: 1px solid #989898 !important;
+}
+.borderRadius5 {
+  border-radius: 5px;
+}
+.bold {
+  font-weight: bold;
+}
+.textLeft {
+  text-align: left;
+}
+.textCenter {
+  text-align: center;
+}
+.textRight {
+  text-align: right;
+}
+.largeText {
+  font-size: 1em;
+  line-height: 1.15em;
+}
+.largeText span {
+  display: block;
+  margin-bottom: -0.5em;
+}
+.button {
+  border-radius: 5px;
+  background-color: #bfbfbf;
+  padding: .75em 1.75em;
+  margin-left: 1em;
+  border: 0px none !important;
+  color: #fff;
+  font-weight: bold;
+}
+.pointer {
+  cursor: pointer;
+}
+.activeBG {
+  background-color: #ececec;
+}
+.hidden {
+  display: none !important;
+}
+html {
+  font: normal 0.875em/0.875em 'Fira Sans', sans-serif;
+  color: #bfbfbf;
+}
+body {
+  min-width: 1280px;
+}
+.header {
+  color: #8a8a8a;
+  text-align: center;
+  text-transform: uppercase;
+}
+#shedule {
+  font-weight: bold;
+  margin: 2em auto 0;
+}
+#shedule td {
+  width: 3em;
+  height: 1.5em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #bfbfbf;
+  box-sizing: border-box;
+}
+#shedule .time {
+  text-align: left;
+}
+#shedule .days {
+  font-size: 1.15em;
+  line-height: 3.5em;
+}
+#shedule .days::selection {
+  background-color: transparent;
+}
+#shedule .days::-moz-selection {
+  background-color: transparent;
+}
+#shedule .oneHour {
+  width: 1.5em;
+}
+#shedule .oneHour:hover {
+  background-color: #f6f6f6;
+}
+.rightButtonBox {
+  text-align: center;
+  margin-top: 1em;
+}
+.rightButtonBox button {
+  border-radius: 5px;
+  background-color: #bfbfbf;
+  padding: .75em 1.75em;
+  border: 0px none !important;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 1em;
+}
+.rightButtonBox button:hover {
+  background-color: #8a8a8a;
+  cursor: pointer;
+}
+.rightButtonBox button:active {
+  background-color: #d8d8d8;
+  color: #8a8a8a;
+  cursor: pointer;
+}
