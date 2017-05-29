@@ -28,10 +28,21 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+let itrvArr = [];
+itrvArr.push(
+    setInterval( ()=>{
+        ReactDOM.render(
+            <span>{ new Date().toLocaleString() }</span>,
+            document.getElementById('time')
+        )
+    } , 1000)
+);
 
-let itrv = setInterval( ()=>{
-    ReactDOM.render(
-        <span>{ new Date().toLocaleString() }</span>,
-        document.getElementById('time')
-    )
-} , 1000);
+document.getElementById('stopItrvs').onclick = (e) => {
+    if( itrvArr.length < 1 ) return false;
+    else {
+        for (let i = 0; i < itrvArr.length; i++) {
+            clearInterval(itrvArr[i]);
+        }
+    }
+};

@@ -27,11 +27,20 @@ var element = React.createElement('div', { className: 'greeting', id: 'wrapper' 
 
 ReactDOM.render(element, document.getElementById('root'));
 
-var itrv = setInterval(function () {
+var itrvArr = [];
+itrvArr.push(setInterval(function () {
     ReactDOM.render(React.createElement(
         'span',
         null,
         new Date().toLocaleString()
     ), document.getElementById('time'));
-}, 1000);
+}, 1000));
+
+document.getElementById('stopItrvs').onclick = function (e) {
+    if (itrvArr.length < 1) return false;else {
+        for (var i = 0; i < itrvArr.length; i++) {
+            clearInterval(itrvArr[i]);
+        }
+    }
+};
 
