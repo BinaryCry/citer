@@ -115,13 +115,56 @@ class MainC extends React.Component {
 
         // setTimeout( ()=> {
         //    this.props.value = 1000;
-        //    this.setState(); // can be used for rewrite View with chanded data
+        //    this.setState(); // can be used for rewrite View with chanded data (props & state)
         // }, 1500  )
 
     }
     componentWillUnmount() {
         clearInterval(this.timerID);
+        alert(1);
     }
 }
 
 ReactDOM.render( <MainC value={ 1 } />, elem );
+//--------------------------------------------------------------
+
+class Evento extends React.Component {
+    constructor(props) {
+        super(props);
+        this.value = 1;
+
+        // bind is necessary for use this in callbacks like in windowEcho:console.log( this )
+        // it can be work only if variable (method) is already defined in class
+        this.windowEcho = this.windowEcho.bind(this);
+        this.consoleEcho = this.consoleEcho.bind(this);
+
+        // this.foo = this.foo.bind(this); // error: foo in not defined in this class
+    }
+    windowEcho(event) {
+        event.preventDefault();
+
+        console.log( this.value );
+
+        alert(event);
+    }
+    consoleEcho(event) {
+        event.preventDefault();
+
+        let obj = {};
+        for(let i in event) {
+            event.hasOwnProperty(i) ? obj[i] = event[i] : 0 ;
+        }
+        console.log(obj);
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.consoleEcho}>Click (console)</button>
+                <button onClick={this.windowEcho}>Click (window)</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<Evento />, document.getElementById('eventum'));

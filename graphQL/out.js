@@ -25,8 +25,13 @@ var LolGamer = function LolGamer(nickname, kda) {
     _classCallCheck(this, LolGamer);
 
     this.nickname = nickname ? nickname : 'noname';
-    this.kda = kda;
-};
+    this.kda = kda ? kda : null;
+}
+
+/*18/4/11 in a game, you have a KDA of:
+  (18 + 11 = 29) / 4 = 7.25.*/
+
+;
 
 var BinaryCry = new LolGamer();
 console.log(BinaryCry.nickname);

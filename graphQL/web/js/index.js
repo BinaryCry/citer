@@ -171,13 +171,14 @@ var MainC = function (_React$Component2) {
 
             // setTimeout( ()=> {
             //    this.props.value = 1000;
-            //    this.setState(); // can be used for rewrite View with chanded data
+            //    this.setState(); // can be used for rewrite View with chanded data (props & state)
             // }, 1500  )
         }
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             clearInterval(this.timerID);
+            alert(1);
         }
     }]);
 
@@ -185,4 +186,69 @@ var MainC = function (_React$Component2) {
 }(React.Component);
 
 ReactDOM.render(React.createElement(MainC, { value: 1 }), elem);
+//--------------------------------------------------------------
+
+var Evento = function (_React$Component3) {
+    _inherits(Evento, _React$Component3);
+
+    function Evento(props) {
+        _classCallCheck(this, Evento);
+
+        var _this4 = _possibleConstructorReturn(this, (Evento.__proto__ || Object.getPrototypeOf(Evento)).call(this, props));
+
+        _this4.value = 1;
+
+        // bind is necessary for use this in callbacks like in windowEcho:console.log( this )
+        // it can be work only if variable (method) is already defined in class
+        _this4.windowEcho = _this4.windowEcho.bind(_this4);
+        _this4.consoleEcho = _this4.consoleEcho.bind(_this4);
+
+        // this.foo = this.foo.bind(this); // error: foo in not defined in this class
+        return _this4;
+    }
+
+    _createClass(Evento, [{
+        key: 'windowEcho',
+        value: function windowEcho(event) {
+            event.preventDefault();
+
+            console.log(this.value);
+
+            alert(event);
+        }
+    }, {
+        key: 'consoleEcho',
+        value: function consoleEcho(event) {
+            event.preventDefault();
+
+            var obj = {};
+            for (var i in event) {
+                event.hasOwnProperty(i) ? obj[i] = event[i] : 0;
+            }
+            console.log(obj);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'button',
+                    { onClick: this.consoleEcho },
+                    'Click (console)'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.windowEcho },
+                    'Click (window)'
+                )
+            );
+        }
+    }]);
+
+    return Evento;
+}(React.Component);
+
+ReactDOM.render(React.createElement(Evento, null), document.getElementById('eventum'));
 
