@@ -9,14 +9,12 @@
     "es6react": "./node_modules/.bin/babel ./web/js/index.jsx > ./web/js/index.js && echo es6react done",
     "less": "./node_modules/less/bin/lessc ./web/style/index.less > ./web/style/index.css && echo less done",
     "server": "./node_modules/.bin/babel ./server.js > ./out.js && echo server done",
-    "es6server": "./node_modules/babel-cli/bin/babel-node.js server_es6.js"
+    "es6server": "./node_modules/babel-cli/bin/babel-node.js server_es6.js",
+    "webpack": "./node_modules/.bin/webpack --config webpack.config.js"
   },
   "author": "BinaryCry",
   "license": "",
   "dependencies": {
-
-  },
-  "devDependencies": {
     "babel-cli": "6.24.1",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
@@ -24,7 +22,10 @@
     "babel-preset-node6" : "11.0.0",
     "graphql": "0.10.5",
     "express": "4.15.3",
-    "express-graphql": "0.6.6",
-    "less": "2.7.2"
+    "express-graphql": "0.6.6"
+  },
+  "devDependencies": {
+    "less": "2.7.2",
+    "webpack": "3.3.0"
   }
 }

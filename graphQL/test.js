@@ -1,6 +1,6 @@
 'use strict';
 
-function strToArr( arr ) {
+function strToArr( arr, ) {
     const join = [].join;
     return join.call( arguments, ":" )
 }
