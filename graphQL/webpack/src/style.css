@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Fira';
+    src: url('./fonts/FiraSans-Regular.woff') format('woff');
+    src: url('./fonts/FiraSans-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'FiraItalic';
+    src: url('./fonts/FiraSans-Italic.woff') format('woff');
+    src: url('./fonts/FiraSans-Italic.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'FiraBold';
+    src: url('./fonts/FiraSans-Bold.woff') format('woff');
+    src: url('./fonts/FiraSans-Bold.woff2') format('woff2');
+}
+
+#root {
+    font-family: 'Fira', sans-serif;
+    font-size: 2em;
+}
+#root img {
+    width: 2em;
+    display: block;
+}
+#docBg {
+    height: 5em;
+    width: auto;
+    opacity: .5;
+    background-image: url('./img/doc.jpg');
+}

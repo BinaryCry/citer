@@ -1,0 +1,21 @@
+{
+  "data": {
+    "users" : [
+      {
+        "name" : "John",
+        "age" : "27",
+        "job" : "cook"
+      },
+      {
+        "name" : "Sally",
+        "age" : "19",
+        "job" : "service"
+      },
+      {
+        "name" : "Mike",
+        "age" : "22",
+        "job" : "stuff"
+      }
+    ]
+  }
+}
