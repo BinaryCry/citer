@@ -4,9 +4,12 @@
   "description": "",
   "main": "echo no main script",
   "scripts": {
-    "start": "./node_modules/.bin/webpack ./src/index.js ./dist/bundle.js",
+    "conv": "./node_modules/.bin/webpack ./src/index.js ./dist/bundle.js",
     "webpack": "./node_modules/.bin/webpack --config webpack.config.js",
-    "build": "./node_modules/.bin/webpack"
+    "build": "./node_modules/.bin/webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open",
+    "startHMR": "webpack-dev-server --hotOnly"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +23,7 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
     "style-loader": "^0.18.2",
-    "webpack": "3.3.0"
+    "webpack": "3.3.0",
+    "webpack-dev-server": "^2.6.1"
   }
 }
