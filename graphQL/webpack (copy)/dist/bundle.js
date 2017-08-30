@@ -96,8 +96,6 @@ root.appendChild(img);
 
 console.log(__WEBPACK_IMPORTED_MODULE_2__data_data_json___default.a);
 
-
-
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
