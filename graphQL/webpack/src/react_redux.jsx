@@ -1,7 +1,8 @@
+'use strict'
+
 import { createStore } from 'redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 
 function playlist(state = ['Kampfbereit'], action) {
     switch (action.type) {
@@ -27,22 +28,39 @@ btn.addEventListener('click', e => {
     } else return false;
 });
 
-
-    class ListItem extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = { created: new Date() };
-        }
-        render() {
-            return (
-                <div>
-                    { this.state.created.toLocaleString() }
-                </div>
-            );
-        }
+class ListItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { created: new Date() };
+        this.tick = this.tick.bind(this);
     }
+    render() {
+        return (
+            <div>
+                { this.state.created.toLocaleString() }
+            </div>
+        );
+    }
+    tick() {
+        let timestamp = new Date();
+        this.setState(
+            {
+                created: timestamp.toLocaleString()
+            }
+        );
+    }
+    componentDidMount() {
+        this.intervID = setInterval( () => {
+            this.tick();
+        }, 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervID);
+        alert(1);
+    }
+}
 
-    ReactDOM.render( <ListItem />, document.getElementById('root'));
+ReactDOM.render( <ListItem />, document.getElementById('root'));
 
 
 
