@@ -1,0 +1,21 @@
+/* Fira Sans */
+@font-face {
+    font-family: 'Fira';
+    src: url('./fonts/FiraSans-Regular.woff') format('woff');
+    src: url('./fonts/FiraSans-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'FiraItalic';
+    src: url('./fonts/FiraSans-Italic.woff') format('woff');
+    src: url('./fonts/FiraSans-Italic.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'FiraBold';
+    src: url('./fonts/FiraSans-Bold.woff') format('woff');
+    src: url('./fonts/FiraSans-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'FiraBoldItalic';
+    src: url('./fonts/FiraSans-BoldItalic.woff') format('woff');
+    src: url('./fonts/FiraSans-BoldItalic.woff2') format('woff2');
+}
