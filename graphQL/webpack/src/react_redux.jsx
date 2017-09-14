@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 import { createStore } from 'redux';
 import React from 'react';
